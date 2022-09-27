@@ -18,15 +18,19 @@ enum PlaceType: String, Codable, CaseIterable {
 struct Place: Codable, Identifiable {
     let id: Int
     let name: String
-    let types: PlaceType
-    let descriptions: String?
-    let city: String
-    let country: String
-    var address: String
-    let location: Location
-    let mainPhoto: String
-    let photos: [String]?
-    let wwwLink: String?
+    let type: PlaceType
+    let description: String?
+//    let city: String
+//    let country: String
+   // var address: String
+    
+    let latitude: Double
+    let longitude: Double
+    
+   // let location: Location
+  //  let mainPhoto: String
+  //  let photos: [String]?
+   /// let wwwLink: String?
 }
 
 struct Location: Codable {

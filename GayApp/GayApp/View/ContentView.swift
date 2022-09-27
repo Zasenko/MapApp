@@ -35,22 +35,22 @@ struct ContentView: View {
                 
                 VStack{
                     HStack(alignment: .top) {
-                        AsyncImage(url: URL(string: place.mainPhoto)) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            Color.red
-                        }
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(10)
-                        .shadow(radius: 5, x: 0, y: 3)
-                        .shadow(radius: 10)
+//                        AsyncImage(url: URL(string: place.mainPhoto)) { image in
+//                            image
+//                                .resizable()
+//                                .scaledToFill()
+//                        } placeholder: {
+//                            Color.red
+//                        }
+//                        .frame(width: 100, height: 100)
+//                        .cornerRadius(10)
+//                        .shadow(radius: 5, x: 0, y: 3)
+//                        .shadow(radius: 10)
                         VStack{
                             Text(place.name)
                                 .bold()
                             
-                            Text(place.address)
+                         //   Text(place.address)
                         }
                         .padding()
                     }
@@ -65,6 +65,9 @@ struct ContentView: View {
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
+            .onAppear{
+                placeModel.getPlaces()
+            }
         }
     }
 }

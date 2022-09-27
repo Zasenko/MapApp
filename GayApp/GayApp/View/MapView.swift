@@ -7,7 +7,6 @@
 
 import SwiftUI
 import MapKit
-//import CoreLocation
 
 struct MyAnnotationItem: Identifiable {
     let id = UUID()
@@ -18,12 +17,10 @@ struct MapView: View {
     
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 48.19760, longitude: 16.36011), span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
     
-    var annotationItems: [MyAnnotationItem] = [MyAnnotationItem(coordinate: CLLocationCoordinate2D(latitude: 48.19760, longitude: 16.36011))
-    ]
+    var annotationItems: [MyAnnotationItem] = [MyAnnotationItem(coordinate: CLLocationCoordinate2D(latitude: 48.19760, longitude: 16.36011))]
     
     var body: some View {
         Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: false, annotationItems: annotationItems) { item in
-            // MapMarker(coordinate: item.coordinate, tint: .blue)
             MapAnnotation(coordinate: item.coordinate) {
                 PlaceAnnotationView()
             }

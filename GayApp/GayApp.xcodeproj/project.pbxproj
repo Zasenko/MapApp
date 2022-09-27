@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A09311928E383380010EA7F /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09311828E383380010EA7F /* UserViewModel.swift */; };
+		0A09311C28E387A90010EA7F /* PlaceNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09311B28E387A90010EA7F /* PlaceNetworkManager.swift */; };
 		0A68F4CD28DCAF7D00AB3E17 /* GayAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A68F4CC28DCAF7D00AB3E17 /* GayAppApp.swift */; };
 		0A68F4CF28DCAF7D00AB3E17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A68F4CE28DCAF7D00AB3E17 /* ContentView.swift */; };
 		0A68F4D128DCAF7E00AB3E17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A68F4D028DCAF7E00AB3E17 /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A09311828E383380010EA7F /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		0A09311B28E387A90010EA7F /* PlaceNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceNetworkManager.swift; sourceTree = "<group>"; };
 		0A68F4C928DCAF7D00AB3E17 /* GayApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GayApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A68F4CC28DCAF7D00AB3E17 /* GayAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GayAppApp.swift; sourceTree = "<group>"; };
 		0A68F4CE28DCAF7D00AB3E17 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -40,6 +44,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A09311A28E384800010EA7F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0A09311B28E387A90010EA7F /* PlaceNetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		0A68F4C028DCAF7D00AB3E17 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				0A68F4CC28DCAF7D00AB3E17 /* GayAppApp.swift */,
+				0A09311A28E384800010EA7F /* Network */,
 				0A68F4DC28DCBC4800AB3E17 /* Model */,
 				0A7A03F428E23CF700A7B386 /* ViewModel */,
 				0A7A03F528E23D0500A7B386 /* View */,
@@ -89,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				0A72E8C928E087FB002F31F0 /* PlaceViewModel.swift */,
+				0A09311828E383380010EA7F /* UserViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -174,10 +188,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A72E8CA28E087FB002F31F0 /* PlaceViewModel.swift in Sources */,
+				0A09311928E383380010EA7F /* UserViewModel.swift in Sources */,
 				0AC4FE1A28E331A00074DE71 /* MapView.swift in Sources */,
 				0A68F4CF28DCAF7D00AB3E17 /* ContentView.swift in Sources */,
 				0A72E8CC28E0A8B1002F31F0 /* PlaceView.swift in Sources */,
 				0A68F4DB28DCAF9200AB3E17 /* Place.swift in Sources */,
+				0A09311C28E387A90010EA7F /* PlaceNetworkManager.swift in Sources */,
 				0A68F4CD28DCAF7D00AB3E17 /* GayAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
