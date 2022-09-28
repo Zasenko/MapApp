@@ -10,48 +10,63 @@ import Combine
 //import Contacts
 //import CoreLocation
 
-//var placesArray: [Place] = [Place(id: 1, name: "Cafe Savoy", types: .cafe, descriptions: nil, city: "Vienna", country: "Austria", address: "", location: Location(latitude: 48.19760, longitude: 16.36011), mainPhoto: "https://www.coffeelifestyler.com/wp-content/uploads/2021/06/Cafe-Savoy.jpg", photos: nil, wwwLink: "https://www.cafe-savoy.at")]
-
 class PlaceViewModel: ObservableObject {
     @Published var places: [Place] = []
-    @Published var selectedCategory: PlaceType = .cafe
-    private var cancellable: AnyCancellable?
+    @Published var category: [PlaceType] = []
+    @Published var selectedCategory: PlaceType = .all
+    @Published var filteredPlaces: [Place] = []
+    private var netv = PlaceNetworkManager()
     
-    private let userModel = UserViewModel()
-    
-    var filteredPlaces: [Place] {
+}
+extension PlaceViewModel {
+    var filteredPlaces2: [Place] {
         switch selectedCategory {
+        case .all:
+            return places
         case .club:
             return places.filter({$0.type == .club})
         case .cafe:
             return places.filter({$0.type == .cafe})
-        case .bars:
-            return places.filter({$0.type == .bars})
-        case .restaurants:
-            return places.filter({$0.type == .restaurants})
-        case .saunas:
-            return places.filter({$0.type == .saunas})
+        case .bar:
+            return places.filter({$0.type == .bar})
+        case .restaurant:
+            return places.filter({$0.type == .restaurant})
+        case .sauna:
+            return places.filter({$0.type == .sauna})
+        case .cruise:
+            return places.filter({$0.type == .cruise})
         }
     }
     
-    func getPlaces() {
-        cancellable = PlaceNetworkManager.shared.getUsers(user_latitude: userModel.userLocation.latitude , user_longitude: userModel.userLocation.longitude , radius: 20)
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-//                    // 4
-//                    self.isRequestFailed = true
-                    print(error)
-                case .finished:
-                    print("finished")
-                }
-            } receiveValue: { users in
-                self.places.append(contentsOf: users)
-              //  self.currentLastId = users.last?.id
-            }
+    @MainActor
+    func getPlaces() async throws {
+        do {
+            places = try await netv.getPlaces(user_latitude: userLocation.latitude, user_longitude: userLocation.longitude, radius: 20)
+        } catch {
+            print("Error:---", error)
+        }
     }
-    
+//    func filterPlaces() {
+//        switch selectedCategory {
+//        case .all:
+//            filteredPlaces = places
+//        case .club:
+//            filteredPlaces = places.filter({$0.type == .club})
+//        case .cafe:
+//            filteredPlaces = places.filter({$0.type == .cafe})
+//        case .bar:
+//            filteredPlaces = places.filter({$0.type == .bar})
+//        case .restaurant:
+//            filteredPlaces = places.filter({$0.type == .restaurant})
+//        case .sauna:
+//            filteredPlaces = places.filter({$0.type == .sauna})
+//        case .cruise:
+//            filteredPlaces = places.filter({$0.type == .cruise})
+//        }
+//    }
+}
+var userLocation: Location = Location(latitude: 48.21512, longitude: 16.37837)
+
 //    func getAddressFromLocatoin(locatoin: CLLocation) -> String {
 //        let ceo: CLGeocoder = CLGeocoder()
 //        var addressString: String = ""
@@ -68,4 +83,3 @@ class PlaceViewModel: ObservableObject {
 //        }
 //        return addressString
 //    }
-}

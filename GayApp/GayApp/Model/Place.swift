@@ -12,23 +12,22 @@ import Foundation
 //}
 
 enum PlaceType: String, Codable, CaseIterable {
-    case club, cafe, bars, restaurants, saunas
+    case all, club, cafe, bar, restaurant, sauna, cruise
 }
 
-struct Place: Codable, Identifiable {
+struct Place: Codable, Identifiable, Equatable {
     let id: Int
     let name: String
     let type: PlaceType
     let description: String?
-//    let city: String
-//    let country: String
-   // var address: String
-    
+    let city: String?
+    let country: String?
+    let address: String?
     let latitude: Double
     let longitude: Double
     
    // let location: Location
-  //  let mainPhoto: String
+    let photo: String
   //  let photos: [String]?
    /// let wwwLink: String?
 }
