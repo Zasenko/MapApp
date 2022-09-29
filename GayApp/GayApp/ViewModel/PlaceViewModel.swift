@@ -14,7 +14,7 @@ class PlaceViewModel: ObservableObject {
     @Published var places: [Place] = []
     @Published var category: [PlaceType] = []
     @Published var selectedCategory: PlaceType = .all
-    @Published var filteredPlaces: [Place] = []
+  //  @Published var filteredPlaces: [Place] = []
     private var netv = PlaceNetworkManager()
     
 }
@@ -41,7 +41,7 @@ extension PlaceViewModel {
     @MainActor
     func getPlaces() async throws {
         do {
-            places = try await netv.getPlaces(user_latitude: userLocation.latitude, user_longitude: userLocation.longitude, radius: 20)
+            places = try await netv.getPlaces(latitude: User.shared.userLocation.latitude, longitude: User.shared.userLocation.longitude, radius: 20)
         } catch {
             print("Error:---", error)
         }

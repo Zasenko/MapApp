@@ -15,7 +15,8 @@ enum PlaceType: String, Codable, CaseIterable {
     case all, club, cafe, bar, restaurant, sauna, cruise
 }
 
-struct Place: Codable, Identifiable, Equatable {
+
+struct Place: Identifiable, Codable, Equatable {
     let id: Int
     let name: String
     let type: PlaceType

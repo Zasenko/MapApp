@@ -8,25 +8,27 @@
 import SwiftUI
 
 struct PlacesView: View {
-    @StateObject var placeViewModel = PlaceViewModel()
     @State private var changedToList = false
-    
+    @StateObject private var placeViewModel = PlaceViewModel()
+    @StateObject private var locationDataManager = LocationDataManager()
     var body: some View {
         ZStack {
-                MapView(placeViewModel: placeViewModel)
+            MapView(locationDataManager: locationDataManager, placeViewModel: placeViewModel)
                     .ignoresSafeArea()
-                    .task {
-                        do {
-                            try await placeViewModel.getPlaces()
-                        } catch {
-                            print("Error", error) // TODO!!!!
-                        }
-                    }
+//                    .task {
+//                        do {
+//                            try await placeViewModel.getPlaces()
+//                        } catch {
+//                            print("Error", error) // TODO!!!!
+//                        }
+//                    }
             
             VStack {
                 HStack {
                     Toggle("", isOn: $changedToList)
                 }
+                
+                //слишком рано создаются
                 ForEach(PlaceType.allCases, id: \.self) { type in
                     Button {
                         placeViewModel.selectedCategory = type
@@ -43,11 +45,11 @@ struct PlacesView: View {
     }
 }
 
-struct PlacesView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlacesView()
-    }
-}
+//struct PlacesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlacesView()
+//    }
+//}
 //
 //struct PlacesListView: View {
 //    

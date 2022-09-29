@@ -8,23 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var locationDataManager = LocationDataManager()
-    var body: some View {
-        switch locationDataManager.locationManager.authorizationStatus {
-        case .authorizedWhenInUse:
-            PlacesView()
-        case .restricted, .denied:
-            Text("Current location data was restricted or denied.")
-        case .notDetermined:
-            VStack {
-                Text("Finding your location...")
-                ProgressView()
-            }
-        default:
-            ProgressView()
-        }
-    }
     
+    var body: some View {
+        PlacesView()
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
