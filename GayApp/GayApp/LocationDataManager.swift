@@ -8,31 +8,25 @@
 import Foundation
 import MapKit
 
-class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegate {
-
-  //  @Published var places = [Place]()
-    @Published var region = MKCoordinateRegion(
-        center: MapDetails.startingDefaultLocation,
-        latitudinalMeters: MapDetails.startingDefaultLatitudinalMeters,
-        longitudinalMeters: MapDetails.startingDefaultLongitudinalMeters
-        )
+final class LocationDataManager : NSObject, ObservableObject {
+    @Published var region = MKCoordinateRegion(center: MapDetails.startingDefaultLocation,
+                                               latitudinalMeters: MapDetails.startingDefaultLatitudinalMeters,
+                                               longitudinalMeters: MapDetails.startingDefaultLongitudinalMeters)
     var locationManager = CLLocationManager()
-    
+}
+
+extension LocationDataManager: CLLocationManagerDelegate {
     func checkIfLocationServicesIsEnabled() {
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-    //    locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.startUpdatingLocation()
     }
-
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAutorization()
     }
-    
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let center = locations.last?.coordinate else { return }
-//        region = MKCoordinateRegion(center: center, latitudinalMeters: 500, longitudinalMeters: 500)
-//    }
-    
+}
+
+extension LocationDataManager {
     private func checkLocationAutorization() {
         switch locationManager.authorizationStatus {
         case .notDetermined:

@@ -29,7 +29,7 @@ struct PlacesView: View {
                 }
                 
                 //слишком рано создаются
-                ForEach(PlaceType.allCases, id: \.self) { type in
+                ForEach(placeViewModel.category, id: \.self) { type in
                     Button {
                         placeViewModel.selectedCategory = type
                     } label: {

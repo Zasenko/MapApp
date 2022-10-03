@@ -25,9 +25,10 @@ struct MapView: View {
     @ObservedObject var locationDataManager: LocationDataManager
     @ObservedObject var placeViewModel: PlaceViewModel
     var body: some View {
+        
         Map(coordinateRegion: $locationDataManager.region, interactionModes: .all, showsUserLocation: true, annotationItems: placeViewModel.filteredPlaces2) { place in
             MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)) {
-                PlaceAnnotationView()
+                PlaceAnnotationView(pin: placeViewModel.getPinColor(place: place.type))
             }
         }
         .accentColor(.red) ///user location Circle's color on map
@@ -42,6 +43,7 @@ struct MapView: View {
             }
         }
         .onChange(of: placeViewModel.filteredPlaces2) { newLocations in
+            print("new locations------------------ \(newLocations)")
             var locations: [CLLocationCoordinate2D] = []
             for location in newLocations {
                 let a = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
@@ -56,22 +58,27 @@ struct MapView: View {
     }
 }
 
-//struct MapView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapView(placeViewModel: PlaceViewModel())
-//    }
-//}
-
 struct PlaceAnnotationView: View {
+    
+    let pin: (Color, String)
+    
     var body: some View {
         VStack(spacing: 0) {
-            Image(systemName: "mappin.circle.fill")
-                .font(.title)
-                .foregroundColor(.red)
+            Text(pin.1)
+                .padding()
+                .background {
+                    pin.0
+                }
+                .clipShape(Circle())
             Image(systemName: "arrowtriangle.down.fill")
                 .font(.caption)
-                .foregroundColor(.red)
+                .foregroundColor(pin.0)
                 .offset(x: 0, y: -5)
         }
+    }
+}
+struct PlaceAnnotationView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlaceAnnotationView(pin: (.blue, "🪩"))
     }
 }

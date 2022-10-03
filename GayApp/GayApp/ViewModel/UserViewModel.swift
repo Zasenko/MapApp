@@ -11,6 +11,6 @@ import CoreLocation
 class User {
     static let shared = User()
     private init () {}
-    var userLocation: CLLocationCoordinate2D =  CLLocationCoordinate2D(latitude: 48.21512, longitude: 16.37237)//Location(latitude: 48.21512, longitude: 16.37837)
+    var userLocation: CLLocationCoordinate2D =  CLLocationCoordinate2D(latitude: 42.21512, longitude: 16.37237)
 }
 

@@ -5,19 +5,17 @@
 //  Created by Dmitry Zasenko on 25.09.22.
 //
 
-import Foundation
-import Combine
+import SwiftUI
 //import Contacts
-//import CoreLocation
 
-class PlaceViewModel: ObservableObject {
+final class PlaceViewModel: ObservableObject {
     @Published var places: [Place] = []
     @Published var category: [PlaceType] = []
     @Published var selectedCategory: PlaceType = .all
-  //  @Published var filteredPlaces: [Place] = []
-    private var netv = PlaceNetworkManager()
+    private var placeNetworkManager = PlaceNetworkManager()
     
 }
+
 extension PlaceViewModel {
     var filteredPlaces2: [Place] {
         switch selectedCategory {
@@ -37,36 +35,35 @@ extension PlaceViewModel {
             return places.filter({$0.type == .cruise})
         }
     }
-    
     @MainActor
     func getPlaces() async throws {
         do {
-            places = try await netv.getPlaces(latitude: User.shared.userLocation.latitude, longitude: User.shared.userLocation.longitude, radius: 20)
+            places = try await placeNetworkManager.getPlaces(latitude: User.shared.userLocation.latitude, longitude: User.shared.userLocation.longitude, radius: 20)
+            category = places.map({$0.type}).uniqued()
         } catch {
             print("Error:---", error)
         }
     }
-//    func filterPlaces() {
-//        switch selectedCategory {
-//        case .all:
-//            filteredPlaces = places
-//        case .club:
-//            filteredPlaces = places.filter({$0.type == .club})
-//        case .cafe:
-//            filteredPlaces = places.filter({$0.type == .cafe})
-//        case .bar:
-//            filteredPlaces = places.filter({$0.type == .bar})
-//        case .restaurant:
-//            filteredPlaces = places.filter({$0.type == .restaurant})
-//        case .sauna:
-//            filteredPlaces = places.filter({$0.type == .sauna})
-//        case .cruise:
-//            filteredPlaces = places.filter({$0.type == .cruise})
-//        }
-//    }
+    
+    func getPinColor(place type: PlaceType) -> (Color, String) {
+        switch type {
+        case .all:
+            return (.black, "")
+        case .club:
+            return (Color.blue, "🪩")
+        case .cafe:
+            return (Color.orange, "☕️")
+        case .bar:
+            return (Color.black, "🍾")
+        case .restaurant:
+            return (Color.yellow, "🍽")
+        case .sauna:
+            return (Color.blue, "🧖")
+        case .cruise:
+            return (Color.black, "😈")
+        }
+    }
 }
-var userLocation: Location = Location(latitude: 48.21512, longitude: 16.37837)
-
 //    func getAddressFromLocatoin(locatoin: CLLocation) -> String {
 //        let ceo: CLGeocoder = CLGeocoder()
 //        var addressString: String = ""

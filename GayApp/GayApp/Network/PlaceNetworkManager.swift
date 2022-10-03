@@ -12,7 +12,7 @@ enum FetchError: Error {
     case badUrl, statusNot200, decoderError
 }
 
-class PlaceNetworkManager {
+final class PlaceNetworkManager {
     static let shared = PlaceNetworkManager()
     
     private let scheme = "https"
